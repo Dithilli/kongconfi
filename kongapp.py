@@ -5,7 +5,7 @@ from git import Repo
 import aws_encryption_sdk
 
 # Importas necessary dependents
-ver = 1.2 
+ver = 1.3 
 # version number
 keyvalue = []
 # creates keyvalue variable
@@ -17,13 +17,16 @@ working_dir = "./testdir"
 def getkey():
     key = str(input('Enter the key: '))
     value = str(input('Enter the value associated with this key: '))
-    return [key,":", value]
+    return [key,":",value]
 
 def fileappend(appendingvalue):
     filename = os.path.join(working_dir, 'testfile.txt')
+    addedkey = ""
     with open(filename, 'a') as f:
         for each in keyvalue:
             f.write(each)
+            addedkey += str(each)
+    return addedkey
         # if keyvalue in set(f): 
             # print("This key is already in use, please select another") 
         # else:
@@ -39,7 +42,6 @@ def fileappend(appendingvalue):
 def getgitpy():
     Repo.clone_from(github_dir, working_dir)
 
-"""
 def filecheck(checkingvalue):
     filename = "testfile.txt"
     # if file.mode =/ unfinished process for checking if the file is already open in any mode                                         
@@ -47,7 +49,6 @@ def filecheck(checkingvalue):
     test = f.readlines()
 
 
-def getgit():
     url = "https://raw.github.com/Dithilli/kongappend/master/testfile.txt"
     filename = os.path.join(getcwd(), 'testfile.txt')
     print(filename)
@@ -58,30 +59,19 @@ def getgit():
             print(r.text)
 
 def pushgit():
-    repo_dir = "https://raw.github.com/Dithilli/kongappend/"
-    repo = Repo(repo_dir)
-    directory = getcwd()
-    filename = directory + '/testfile.txt'
-    file_list = filename
-    commit_message = 'Appended Config File with new Key Value pair'
-    repo.index.add(file_list)
-    repo.index.commit(commit_message)
-    origin = repo.remote('origin')
-    origin.push()
-    
+    pass
+
 
 """
-
-
 def cycle_string(key_arn, source_plaintext, botocore_session=None): 
-    """Encrypts and then decrypts a string using a KMS customer master key (CMK)
+    Encrypts and then decrypts a string using a KMS customer master key (CMK)
 
     :param str key_arn: Amazon Resource Name (ARN) of the KMS CMK
     (http://docs.aws.amazon.com/kms/latest/developerguide/viewing-keys.html)
     :param bytes source_plaintext: Data to encrypt
     :param botocore_session: Existing Botocore session instance
     :type botocore_session: botocore.session.Session
-    """
+    
 
     # Create a KMS master key provider
     kms_kwargs = dict(key_ids=[key_arn])
@@ -118,7 +108,9 @@ def cycle_string(key_arn, source_plaintext, botocore_session=None):
 
     print('Decrypted: ', cycled_plaintext)
 
+"""
 
+# actual running code
 
 getgitpy()
 
@@ -126,8 +118,6 @@ print("This is the WeWork KongConfig appending App Version {} Use this app to ad
 
 keyvalue = getkey()
 
-print("Your key:value is {}".format(keyvalue))
+addedkey = fileappend(keyvalue)
 
-
-
-fileappend(keyvalue)
+print("{} was added to the list of Key:Values".format(addedkey))

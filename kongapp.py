@@ -4,7 +4,7 @@ import os
 from git import Repo
 import aws_encryption_sdk
 
-# Importas necessary dependents
+# Importants necessary dependencies
 ver = 1.3 
 # version number
 keyvalue = []
@@ -40,8 +40,13 @@ def fileappend(appendingvalue):
 
 
 def getgitpy():
-    Repo.clone_from(github_dir, working_dir)
+    repo = Repo.clone_from(github_dir, working_dir)
+    return repo
 
+def pushgit(localrepo):
+    pass
+
+"""
 def filecheck(checkingvalue):
     filename = "testfile.txt"
     # if file.mode =/ unfinished process for checking if the file is already open in any mode                                         
@@ -57,10 +62,7 @@ def filecheck(checkingvalue):
         with open(filename,'w+') as f:
             f.write(r.text)
             print(r.text)
-
-def pushgit():
-    pass
-
+"""
 
 """
 def cycle_string(key_arn, source_plaintext, botocore_session=None): 
@@ -112,7 +114,7 @@ def cycle_string(key_arn, source_plaintext, botocore_session=None):
 
 # actual running code
 
-getgitpy()
+localrepo = getgitpy()
 
 print("This is the WeWork KongConfig appending App Version {} Use this app to add your environmental variable key:values to the KongConfig file.".format(ver) )
 
